@@ -32,8 +32,8 @@ public class XMLDriver {
             // 2048);
             String[] arg = new GenericOptionsParser(conf, args).getRemainingArgs();
  
-            conf.set("START_TAG_KEY", "<book");
-            conf.set("END_TAG_KEY", "</book");
+            conf.set("START_TAG_KEY", "<timestep");
+            conf.set("END_TAG_KEY", "</timestep");
  
             Job job = new Job(conf, "XML Processing Processing");
             job.setJarByClass(XMLDriver.class);

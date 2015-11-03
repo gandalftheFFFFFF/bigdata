@@ -49,27 +49,28 @@ public class MyMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
                     
                    String time = eElement.getAttribute("time"); // Got time
                     
-                    NodeList nList2 = eElement.getElementsByTagName("vehicle"); // get nodelist of each vehicle tag in current timestep tag
+                    NodeList nList2 = eElement.getElementsByTagName("*"); // get nodelist of each vehicle tag in current timestep tag
                     
                     for (int t = 0; t < nList2.getLength(); t++) { // loop through
                     	Node n = nList2.item(t);
                     	if (n.getNodeType() == Node.ELEMENT_NODE) {
                     		Element e  = (Element)n;
+                    		String type = e.getTagName().substring(0,1);
                     		String id = e.getAttribute("id");
                     		String x = e.getAttribute("x");
+                    		String y = e.getAttribute("y");
+                    		String angle = e.getAttribute("angle");
+                    		String speed = e.getAttribute("speed");
+                    		String pos = e.getAttribute("pos");
+                    		String lane = e.getAttribute("lane");
+                    		String edge = e.getAttribute("edge");
                     		
-                    		context.write(new Text(time + " " + id + " " + x), NullWritable.get());
+                    		// Produces CSV file :
+                    		// time,type,id,x,y,angle,speed,pos,edge
+                    		
+                    		context.write(new Text(time + "," + type + "," + id + "," + x + "," + y + "," + angle + "," + speed + "," + pos + "," + lane + "," + edge), NullWritable.get());
                     	}
                     }
- 
-//                    String id = eElement.getAttribute("id");
-//                    String author = eElement.getElementsByTagName("author").item(0).getTextContent();
-//                    String title = eElement.getElementsByTagName("title").item(0).getTextContent();
-                    //String name = eElement.getElementsByTagName("name").item(0).getTextContent();
-                    //String gender = eElement.getElementsByTagName("gender").item(0).getTextContent();
- 
-                    // System.out.println(id + "," + name + "," + gender);
-//                    context.write(new Text(id + " " + author), NullWritable.get());
  
                 }
             }
