@@ -1,4 +1,3 @@
-package docTest;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -44,18 +43,20 @@ public class XmlTest {
         		  tmpData.setY(Double.parseDouble(arr[4]));
         		  tmpData.setSpeed(Double.parseDouble(arr[6]));
         		  tmpData.setAngle(Double.parseDouble(arr[5]));
+        		  if(id==0.0){
+//        			  System.out.print(tmpData.getTime()+" ");
+ 
+        		  }
         	  }
-        	  
         	  if(mapper.containsKey(id)){
-        		  LinkedList<Data> list = mapper.get(id);
-        		  list.add(tmpData);
-        		  mapper.put(id, list);
+        		  mapper.get(id).add(tmpData);
         	  }
         	  else{
         		  LinkedList<Data> list = new LinkedList<>();
         		  list.add(tmpData);
         		  mapper.put(id, list);
         	  }
+
         	  
         	  
           }
@@ -65,20 +66,25 @@ public class XmlTest {
 
           e.printStackTrace();
       }
-	  
-     LinkedList<Data> list = mapper.get(1);
-     System.out.println(list.size());
-     ListIterator itr = list.listIterator();
-     while(itr.hasNext()){
-    	 Data data = (Data) itr.next();
-    	 System.out.println(data.getTime());
+	 System.out.println("\n");
+     LinkedList<Data> list = mapper.get(10.0);
+     System.out.println("list size "+list.size());
+     for(Data data : list){
+    	 System.out.print(data.getTime()+" ");
      }
+     
+//     ListIterator<Data> itr = list.listIterator();
+//     
+//     while(itr.hasNext()){
+//    	 Data data = itr.next();
+//    	 System.out.print(data.getTime()+" ");
+//     }
   }
 
 }
 class Data{
 	private int id;
-	private Double time;
+	private double time;
 	private double x;
     private double y;
     private double angle;
@@ -93,7 +99,7 @@ class Data{
     public int getId(){
     	return id;
     }
-    public void setTime(Double time){
+    public void setTime(double time){
     	this.time = time;
     }
     public double getTime(){
@@ -119,5 +125,8 @@ class Data{
     }
     public void setSpeed(double speed){
     	this.speed = speed;
+    }
+    public double getSpeed(){
+    	return speed;
     }
 }
