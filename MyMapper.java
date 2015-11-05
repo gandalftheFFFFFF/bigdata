@@ -66,7 +66,7 @@ public class MyMapper extends Mapper<LongWritable, Text, Text, NullWritable> {
                     		String edge = e.getAttribute("edge");
                     		
                     		// Produces CSV file :
-                    		// time,type,id,x,y,angle,speed,pos,edge
+                    		// time,type,id,x,y,angle,speed,pos,lane,edge
                     		
                     		context.write(new Text(time + "," + type + "," + id + "," + x + "," + y + "," + angle + "," + speed + "," + pos + "," + lane + "," + edge), NullWritable.get());
                     	}
