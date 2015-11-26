@@ -1,0 +1,7 @@
+bigdata/technical/SomeMapper.class
+bigdata/technical/MainJob.class
+bigdata/technical/SomeReducer.class
+bigdata/technical/SomePartitioner.class
+bigdata/technical/SomeGroupComparator.class
+bigdata/technical/MotionKey.class
+bigdata/technical/SomeComparator.class
