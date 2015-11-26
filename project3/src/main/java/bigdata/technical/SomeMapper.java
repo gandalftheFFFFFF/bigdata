@@ -28,5 +28,6 @@ public class SomeMapper extends Mapper<LongWritable, Text, MotionKey, BooleanWri
 		// Write to context!
 		context.write(m, state);
 
+		// And done!
 	}
 }
