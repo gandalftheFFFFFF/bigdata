@@ -17,9 +17,9 @@ import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
 
-public class IntervalSwitchJob {
+public class IntervalMotionJob {
 
-	public static class IntervalSwitchMapper extends Mapper<Object, Text, SwitchKey, BooleanWritable> {
+	public static class IntervalMotionMapper extends Mapper<Object, Text, MotionKey, BooleanWritable> {
 
 		public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 
@@ -29,8 +29,7 @@ public class IntervalSwitchJob {
 
 			Text place = new Text(keySplit[0]);
 			LongWritable time = new LongWritable(Long.parseLong(keySplit[1]));
-			IntWritable watt = new IntWritable(Integer.parseInt(keySplit[2]));
-			SwitchKey k = new SwitchKey(place, time, watt);
+			MotionKey k = new MotionKey(place, time);
 
 			BooleanWritable state;
 			if (split[1].equals("true")) {
@@ -44,14 +43,12 @@ public class IntervalSwitchJob {
 	}
 
 
-	public static class IntervalReducer extends Reducer<SwitchKey, BooleanWritable, Text, IntWritable> {
+	public static class IntervalMotionReducer extends Reducer<MotionKey, BooleanWritable, Text, IntWritable> {
 
-		public void reduce(SwitchKey key, Iterable<BooleanWritable> values, Context context) throws IOException, InterruptedException {
+		public void reduce(MotionKey key, Iterable<BooleanWritable> values, Context context) throws IOException, InterruptedException {
 
 			int start = 0;
 			int end = 0;
-
-			int i = 0;
 
 			for (BooleanWritable b : values) {
 				if (b.get() == true) {
@@ -60,14 +57,9 @@ public class IntervalSwitchJob {
 				if (b.get() == false) {
 					// A pair has been found!
 					end = (int)key.time.get();
-					context.write(new Text(key.place + "," + start + "," + end), new IntWritable(end-start));	
+					context.write(new Text(key.place), new IntWritable(end-start));	
 				}
-
-				i++;
-
 			}
-
-
 		}
 	}
 
@@ -78,19 +70,19 @@ public class IntervalSwitchJob {
 
 		Job job = Job.getInstance(conf, "some job");
 
-		job.setJarByClass(IntervalSwitchJob.class);
+		job.setJarByClass(IntervalMotionJob.class);
 
-		job.setMapperClass(IntervalSwitchMapper.class);
-		job.setMapOutputKeyClass(SwitchKey.class);
+		job.setMapperClass(IntervalMotionMapper.class);
+		job.setMapOutputKeyClass(MotionKey.class);
 		job.setMapOutputValueClass(BooleanWritable.class);
 
-		job.setPartitionerClass(SwitchPartitioner.class);
-		job.setSortComparatorClass(SwitchComparator.class);
-		job.setGroupingComparatorClass(SwitchGroupComparator.class);
+		job.setPartitionerClass(SomePartitioner.class);
+		job.setSortComparatorClass(SomeComparator.class);
+		job.setGroupingComparatorClass(SomeGroupComparator.class);
 		
-		job.setReducerClass(IntervalReducer.class);
+		job.setReducerClass(IntervalMotionReducer.class);
 	
-		job.setOutputKeyClass(SwitchKey.class);
+		job.setOutputKeyClass(MotionKey.class);
 		job.setOutputValueClass(IntWritable.class);
 
 		job.setNumReduceTasks(1);
