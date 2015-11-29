@@ -1,6 +1,13 @@
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchJob.java
 /home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SomePartitioner.java
-/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/MotionKey.java
 /home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SomeComparator.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchPartitioner.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/MotionKey.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchComparator.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchReducer.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchGroupComparator.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchKey.java
+/home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SwitchMapper.java
 /home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SomeMapper.java
 /home/vagrant/bigdata/project3/src/main/java/bigdata/technical/MainJob.java
 /home/vagrant/bigdata/project3/src/main/java/bigdata/technical/SomeGroupComparator.java

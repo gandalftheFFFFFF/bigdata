@@ -10,26 +10,26 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-public class MainJob {
+public class SwitchJob {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
 
 		Job job = Job.getInstance(conf, "some job");
 
-		job.setJarByClass(MainJob.class);
+		job.setJarByClass(SwitchJob.class);
 
-		job.setMapperClass(SomeMapper.class);
-		job.setMapOutputKeyClass(MotionKey.class);
+		job.setMapperClass(SwitchMapper.class);
+		job.setMapOutputKeyClass(SwitchKey.class);
 		job.setMapOutputValueClass(BooleanWritable.class);
 
-		job.setPartitionerClass(SomePartitioner.class);
-		job.setSortComparatorClass(SomeComparator.class);
-		job.setGroupingComparatorClass(SomeGroupComparator.class);
+		job.setPartitionerClass(SwitchPartitioner.class);
+		job.setSortComparatorClass(SwitchComparator.class);
+		job.setGroupingComparatorClass(SwitchGroupComparator.class);
 		
-		job.setReducerClass(SomeReducer.class);
+		job.setReducerClass(SwitchReducer.class);
 	
-		job.setOutputKeyClass(MotionKey.class);
+		job.setOutputKeyClass(SwitchKey.class);
 		job.setOutputValueClass(Text.class);
 
 		job.setNumReduceTasks(1);
